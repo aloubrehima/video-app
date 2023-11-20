@@ -2,6 +2,7 @@ from urllib import parse
 from django.db import models
 from django.core.exceptions import ValidationError
 
+
 class Video(models.Model):  # django model name
     name = models.CharField(max_length=200)
     url = models.CharField(max_length=400)

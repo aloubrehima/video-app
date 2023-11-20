@@ -173,4 +173,19 @@ class TestVideoModel(TestCase):
         v1 = Video.objects.create(name='ABC', url='https://www.youtube.com/watch?v=456')
         with self.assertRaises(IntegrityError):
             Video.objects.create(name='ABC', url='https://www.youtube.com/watch?v=456')
-        
+
+
+class VideoDataPageTest(TestCase):
+
+    def test_video_detail_page_shows_all_info(self):
+        test_video = Video.objects.create(name='Test Video', url='https://www.youtube.com/watch?v=dQw4w9WgXcQ', notes='Test Notes') 
+
+        response = self.client.get(reverse('video_data', args=(test_video.id,)))  # Make a request to the video's data page
+
+    
+        self.assertContains(response, test_video.name) # check to see if the the data is correct
+        self.assertContains(response, test_video.url)
+        self.assertContains(response, test_video.notes)
+        self.assertEqual(response.status_code, 200)
+    
+    

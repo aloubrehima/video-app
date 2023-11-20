@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
@@ -44,4 +44,15 @@ def video_list(request):
         videos = Video.objects.order_by(Lower('name'))
 
     return render(request, 'video_collection/video_list.html', {'videos': videos, 'search_form': search_form})
+
+
+def video_data(request, video_id):
+    video = get_object_or_404(Video, pk=video_id)
+    return render(request, 'video_collection/video_data.html', {'video': video})
+
+
+def delete_video(request, video_id):
+    video = get_object_or_404(Video, pk=video_id)
+    video.delete()
+    return redirect('video_list')  
 

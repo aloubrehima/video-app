@@ -1,0 +1,15 @@
+{% extends 'video_collection/base.html' %}
+
+
+{% block content %}
+  <h1>{{ video.name }}</h1>
+  <p><strong>URL:</strong> <a href="{{ video.url }}" target="_blank">{{ video.url }}</a></p>
+  <p><strong>Notes:</strong> {{ video.notes }}</p>
+
+  <!-- Optional: Delete Button -->
+  <form action="{% url 'delete_video' video.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete" />
+  </form>
+
+{% endblock %}
